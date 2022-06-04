@@ -7,7 +7,7 @@
 - Sprite Anim 精灵动画：播放一串连续的图片
 - Live2D：变换图片上的一系列控制点来做表情和动作的变化；Key Frame
 ### 3D Animation
-- Vertex Anim:逐顶点动画
+- Vertex Anim:逐顶点动画(存的是每帧顶点数据)
     - 很灵活
     - 大部分使用vertex animation texture(VAT)实现，通常需要两张，Translation Texture & Rotation Texture
     - **适用于复杂变形动画**
@@ -15,7 +15,7 @@
 - Morph Target animation:目标变形动画(一种顶点动画的变体)
     - 在关键帧动画序列之间插值得到平滑的动画(Key Pose -> Play with Lerp)
     - **适用于面部动画**
-- 3D Skinned Animation(骨骼蒙皮动画)
+- 3D Skinned Animation(骨骼蒙皮动画， 存多帧关节数据，和顶点相对于关节的位置数据)
     - Mesh/Skin被绑定到骨骼的关节(多个)
     - 每个顶点受不同关节影响有不同权重(多个关节的Trans加权后得到顶点的Trans)
     - **比逐顶点动画数据量小，Mesh的动画可以更自然**(就像人的皮肤一样)
@@ -60,9 +60,31 @@
     - Quaternion
         - 游戏数学的基础
 - Joint Pose
-    - ...
+    - Rotation Translate Scale
+    - 动画数据存在local space:如果存在model/world插值起来不方便
+    - Skinning Matrix(**不太懂**):思路是mesh顶点相对于绑定骨骼的Transform不变
+- Clip: 一个Pose序列
+- Interpolation
+    - LERP
+    - NLERP:使用Quaternion插值
+    - SLERP(**不太懂**)
+- Simple Anim Runtime Pipeline
+    - 输入Clip和time, 从上一帧Pose到目标帧Pose之间插值(LS)得到当前帧的骨架Pose,换算到MS，算出蒙皮矩阵(WS), 最终计算出顶点的位置
+
 ### Animation Compression(动画压缩)
+- Scale：忽略掉Scale Track
+- Keyframe(误差比较大，如果要好的效果，需要加很多关键帧):只存关键帧，然后在之间插值。去关键帧的思路：遍历每帧动画，然后Lerp(Frame[i-1], Frame[i+1])之间插值，如果误差太大，那么就把中间帧当作关键帧存起来
+- Catmull-Rom Spline: 效果很耗
+- float Quantization: 数据压缩(**不太懂**)
 ### Animation DCC(Pileline)
+- Mesh building: LowpolyMesh
+- Skeleton Binding
+- Skinnning - Auto Calculation, hand adjust
+- Animation Creation : artist make keyframe and program handle
+
+## Q&A
+- Mesh顶点绑定的关节有数量限制嘛？
+    - 理论上可以绑定无数个，但是绑太多会大大增加计算量，一般不超过4个
 
 ## Advanced Animation Technology
 ### Animation Blend
