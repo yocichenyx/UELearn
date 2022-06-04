@@ -74,7 +74,7 @@
 ### Animation Compression(动画压缩)
 - Scale：忽略掉Scale Track
 - Keyframe(误差比较大，如果要好的效果，需要加很多关键帧):只存关键帧，然后在之间插值。去关键帧的思路：遍历每帧动画，然后Lerp(Frame[i-1], Frame[i+1])之间插值，如果误差太大，那么就把中间帧当作关键帧存起来
-- Catmull-Rom Spline: 效果很耗
+- Catmull-Rom Spline: 效果很好
 - float Quantization: 数据压缩(**不太懂**)
 ### Animation DCC(Pileline)
 - Mesh building: LowpolyMesh
