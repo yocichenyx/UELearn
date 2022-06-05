@@ -2,6 +2,7 @@
 ### 主要挑战
 - 性能
 - 真实
+---
 ## Basics of Animation Technology
 ### 2D Animation
 - Sprite Anim 精灵动画：播放一串连续的图片
@@ -82,15 +83,77 @@
 - Skinnning - Auto Calculation, hand adjust
 - Animation Creation : artist make keyframe and program handle
 
-## Q&A
+### Q&A
 - Mesh顶点绑定的关节有数量限制嘛？
     - 理论上可以绑定无数个，但是绑太多会大大增加计算量，一般不超过4个
-
+---
 ## Advanced Animation Technology
 ### Animation Blend
+- Case : Walk to Run 
+- Math of Blending : LERP
+- Calcute Blend Weight : 简单例子，走到跑，用速度算不同动画Clip的权重，Wi累加值为1
+- Align Blend Timeline : 时间线对齐是动画可以blend的基础
+- Blend Space
+  - 1D BS : directional Movement 单向，单参数
+  - 2D BS : 双向，双参数
+    - 延申：Delaunay三角化(**不懂**)
+- Skeleton Masked Blending 
+  - Case : 不同的部分的关节播不同的动画
+- Additive Blending
+  - 只存变化量，然后作为增量叠加到其他的动画Clip上
+- Cross Fades
+  - Smooth transition : 按照Timeline正常混合多Clips
+  - Frozen transition : 将某些Clip的Pose停住来混合其他Clip
+- Animation State Machine(ASC)
+    - Core Item : State Nodes(动画状态) and Transitions(过渡条件)
+    - Layered ASM : 角色身体的不同部分播不同动画，动画分层
+- Animation Blend Tree
+  - Blend Tree
+    - LERP Blend Node : Clips -> LERP NODE -> Output Pose
+    - Additive Blend Node
 ### Inverse Kinematics
+- Basic Concepts
+  - End-effector : 关节的期望位置
+  - IK : Inverse Kinematics
+  - FK : Forward Kinematics
+- Two Bones IK : 最简单的IK
+- 更完备：长链IK, 解剖学
+- 经典算法
+  - Heuristic Algorithm
+    - CCD(Cyclic Coordinate Decent)循环坐标下降 : 从末端的关节开始，旋转关节，向期望点靠近，迭代多次得到结果
+    - Optmized CCD 1 : 传统的CCD，先迭代的关节通常旋转幅度很大，效果不好，对旋转的幅度做限制，不要完全转到朝向目标方向
+    ![img](./../Images/CCD_Optimize_1_Add_tolerance_to_each_joint's_goal.png)
+    -  Optmized CCD 2(给关节旋转加上阻力，越来越小) : 对于关节旋转的角度限制越靠近根骨骼越小
+    ![img](./../Images/CCD_Optimize_2_AngleLimit_become_small_when_close_to_root_bone.png)
+    - FABRIK(Forward And Backward Reaching IK)
+      - 一次正向一次反向循环迭代
+      - 正向：强行把较末端关节拉到期望位置，然后再根据原始偏移调整关节链上的其他关节，直到root
+      - 反向：把root拉到原来位置，然后根据原始trans偏移把链上的较末端关节调整到位
+      - 也可以处理骨骼约束
+- Multiple End-Effectors : 多控制点，有不同骨骼的期望点
+  - Jacobian Matrix : 梯度下降
+- Other IK Solutions
+  - Physics-based Method(基于物理)
+    - 更自然，如果没有优化的话需要大量计算
+  - PBD(Position Based Dynamics)
+    - 减少了计算量
+  - Fullbody IK in UE5(**可以研究一下**)
 ### Animation Pipeline
+- Updated Animation Pipeline with Blending and IK
+![img](./../Images/Update_animation_pipeline_with_blending_and_ik.png)
 ### Animation Graph
 ### Facial Animation 
+- Morph Targe Animation(数据量大)
+- UV texture Facial Animation : 在简单的头部形状上使用一系列的texture maps来达到动画效果
 ### Retargeting 
-
+- 目的: 在角色间共享动画
+- Details
+  - Lock Feet by IK after Retargeting
+- Retargeting with Different Skeleton Hierarchy
+  - Easy Solution in **Omniverse** : 做骨骼映射
+- Morph Animation Retargeting : different face sharing the same anim
+### Summary
+- 通过Gameplay来控制**Blending system**是驱动角色的关键
+- **IK**帮助角色适应**环境约束**
+- **Morph target animation**在**人脸动画**中应用的很好
+- **Retargeting help reuse skeleton animation and facial animations among characters**
