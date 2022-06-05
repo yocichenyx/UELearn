@@ -2,7 +2,6 @@
 ### 主要挑战
 - 性能
 - 真实
----
 ## Basics of Animation Technology
 ### 2D Animation
 - Sprite Anim 精灵动画：播放一串连续的图片
@@ -86,7 +85,6 @@
 ### Q&A
 - Mesh顶点绑定的关节有数量限制嘛？
     - 理论上可以绑定无数个，但是绑太多会大大增加计算量，一般不超过4个
----
 ## Advanced Animation Technology
 ### Animation Blend
 - Case : Walk to Run 
