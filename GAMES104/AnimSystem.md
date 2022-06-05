@@ -153,5 +153,5 @@
 ### Summary
 - 通过Gameplay来控制**Blending system**是驱动角色的关键
 - **IK**帮助角色适应**环境约束**
-- **Morph target animation**在**人脸动画**中应用的很好
+- **Morph target animation**在**人脸动画**中应用的很好，但是骨骼动画也会用于人脸
 - **Retargeting help reuse skeleton animation and facial animations among characters**
