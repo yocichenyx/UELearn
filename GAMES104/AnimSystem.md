@@ -155,3 +155,8 @@
 - **IK**帮助角色适应**环境约束**
 - **Morph target animation**在**人脸动画**中应用的很好，但是骨骼动画也会用于人脸
 - **Retargeting help reuse skeleton animation and facial animations among characters**
+
+## Reference
+- [GAMES104-Chapter-08 游戏引擎的动画技能基础(上)](https://www.bilibili.com/video/BV1jr4y1t7WR?share_source=copy_web)
+- [GAMES104-Chapter-08 游戏引擎的动画技能基础(下)](https://www.bilibili.com/video/BV1fF411j7hA?share_source=copy_web)
+- [GAMES104-Chapter-09 高级动画技术：动画树、IK和表情动画](https://www.bilibili.com/video/BV1pY411F7pA?share_source=copy_web)
