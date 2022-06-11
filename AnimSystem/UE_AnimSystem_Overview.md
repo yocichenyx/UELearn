@@ -42,7 +42,7 @@
   ![img](./../Images/AnimEvaluateEntrance.png)
 ## AnimBP Expand
 - Runtime Node & Editor Node
-- 新增动画节点的准备工作: 实现一个FAnimNode_XXX:FAnimNode_Base，再实现一个蓝图中用的UAnimGraphNode_XXX:UAnimGraphNode_BAse
+- 新增动画节点的准备工作: 实现一个FAnimNode_XXX:FAnimNode_Base，再实现一个蓝图中用的UAnimGraphNode_XXX:UAnimGraphNode_Base
 - 简单实例: 
   - FAnimNode_SpringBone : Editor动画图节点
   - UAnimGraphNode_SpringBone : 运行时的动画节点(包含真正的Node功能实现)
