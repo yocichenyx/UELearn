@@ -5,5 +5,5 @@
 
 # Animation System Learn 
 > My road in animation learn!
-- [AnimSystemOverview From GAMES104](./GAMES104/AnimSystem.md)
+- [AnimSystemOverview From GAMES104](./AnimSystem/AnimSystem_Overview_GAMES104.md)
 - [UE AnimSystem Overview](./AnimSystem/UE_AnimSystem_Overview.md)
